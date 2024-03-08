@@ -23,7 +23,7 @@ const MongoStore = require('connect-mongo');
 // const db_url = process.env.DB_URL;
 // mongodb://127.0.0.1:27017/yelp-camp
 
-const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp';
 
 main().catch(err => {
     console.log("connection error:")
@@ -160,6 +160,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err });
 })
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000')
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Serving on port ${port}`)
 })
